@@ -1,44 +1,36 @@
-'use strict';
-$(".start").click(function(){
-    alert("ストップウォッチスタート。ボタンクリック効いてること確認")
-})
-/*function startTimer() {
-    alert("ストップウォッチスタート。ボタンクリック効いてること確認")
-}*/
+'use strict'
 
-$(".start").click(function() {
-    $(".timer").text(/*ここにstopWatch入れても反応しない*/"ここにconsole表示させたい")});
-        /*
-        ここにconsoleに表示される関数入れればいいのでは？と思ったが
-        試しにstopWatchという関数を下で作ってやってみたがうまくいかない
-        );
-        */
-const stopWatch = ()=>{
-    console.log("ここに表示されるものをストップウォッチの液晶に反映させたい")
-}
-stopWatch();
+let stop;
+let progress;
+let addition = 0;
+const record = document.querySelector("p.counter");
+// カウンター
+function timer() {
+const start = new Date().getTime();
+console.log(start);
+stop = setInterval(function() {
+progress = new Date().getTime() - start + addition;
+const noms = progress / 1000;
+const millisecond = progress ? ("0" + String(noms).split(".")[1]).slice(-2) : "00";
+const nos = Math.trunc(noms);
+const second = nos ? ("0" + (nos % 86400 % 3600 %60)).slice(-2) : "00";
+const minute = nos >= 60 ? ("0" + Math.trunc(nos % 86400 % 3600 / 60)).slice(-2) : "00";
+const hour = nos >= 360 ? ("0" + Math.trunc(nos % 86400 / 3600)).slice(-2) : "00";
+if (progress < 86400) {
+record.textContent = hour + ":" + minute + ":" + second + ":" + millisecond; } else {
+record.textContent = "00:00:00:00"; clearInterval(stop); }}, 10); }
+// ボタン部
+const startButton = document.querySelector("button.start");
+const stopButton = document.querySelector("button.stop");
+const resetButton = document.querySelector("button.reset");
+stopButton.disabled = true; resetButton.disabled = true;
+// スタート
+startButton.addEventListener("click", function() {
+progress = 0; timer(); startButton.disabled = true; stopButton.disabled = false; resetButton.disabled = false; });
+// ストップ
+stopButton.addEventListener("click", function() {
+clearInterval(stop); addition = progress; startButton.disabled = false; stopButton.disabled = true; resetButton.disabled = false; });
+// リセット
+resetButton.addEventListener("click", function() {
+clearInterval(stop); progress = 0; record.textContent = "00:00:00:00"; addition = 0; startButton.disabled = false; stopButton.disabled = true; resetButton.disabled = true; })
 
-
-/*
-[hello]が、consoleに表示されてるものに変更できれば
-下記のコードで
-*/
-
-    var timer1 = null;
-        var cnt = 0;
-
-        function event() {
-
-            cnt++;
-
-            // 1000ミリ秒ごとにコンソールに表示
-            console.log('this time number is: ' + cnt);
-        }
-
-    // タイマー開始
-    timer1 = setInterval(event, 1000);
-/*
-これでタイマーの表示をsetIntervalによって
-計測された時間を反映できるのでは？
-
-*/
