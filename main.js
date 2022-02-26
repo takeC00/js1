@@ -17,7 +17,7 @@ function timer() {
       console.log(noms)
       const millisecond = progress >100 ? ("0" + String(noms).split(".")[1]).slice(-3,-1) : "00";
       const nos = Math.trunc(noms);
-      const second = nos >=60 ? ("0" + (nos % 86400 % 3600 %60)).slice(-2) : "00";
+      const second = nos  ? ("0" + (nos % 86400 % 3600 %60)).slice(-2) : "00";
       const minute = nos >= 60 ? ("0" + Math.trunc(nos % 86400 % 3600 / 60)).slice(-2) : "00";
       const hour = nos >= 360 ? ("0" + Math.trunc(nos % 86400 / 3600)).slice(-2) : "00";
     
