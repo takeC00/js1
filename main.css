@@ -1,8 +1,5 @@
 @charset "UTF-8";
-@font-face {
-    font-family: 'MyFont';
-    src: url(./led_digital_7.ttf) format('truetype');
-}
+
 .time {
     
     border: 2px gray solid;
